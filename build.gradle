@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	// https://mvnrepository.com/artifact/javax.servlet/jstl
 	implementation 'javax.servlet:jstl'
+	// https://mvnrepository.com/artifact/com.oracle.ojdbc/orai18n
+	implementation 'com.oracle.ojdbc:orai18n:19.3.0.0'
 
 }
 
