@@ -2,8 +2,10 @@ package com.example.databasehw7.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity(name="EMP")
+@Getter
 @Builder
 public class Employee {
 
@@ -21,13 +24,13 @@ public class Employee {
 
     private String job;
 
-    private int mgr;
+    private Integer mgr;
 
     private LocalDate hiredate;
 
     private int sal;
 
-    private int comm;
+    private Integer comm;
 
     private int deptno;
 }

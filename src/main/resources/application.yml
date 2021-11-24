@@ -4,10 +4,15 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/orcl
+    url: jdbc:oracle:thin:@localhost:1521:orcl
     username: class_a
     password: delab
     driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    database: oracle
+    hibernate:
+      ddl-auto: none
+    show-sql: true
 server:
   tomcat:
     additional-tld-skip-patterns: orai18n-*.jar
