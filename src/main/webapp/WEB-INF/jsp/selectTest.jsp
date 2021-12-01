@@ -9,17 +9,19 @@
 	<body>
 		<table width="500" border="1">
 			<tr>
-				<td width="100">아이디</td>
-				<td width="100">이름</td>
-				<td width="100">학과명</td>
-				<td width="100">이수학점</td>
+				<td width="100">학생 번호</td>
+				<td width="100">교수 번호</td>
+				<td width="100">학생 이름</td>
+				<td width="100">년도</td>
+				<td width="100">전공</td>
 			</tr>
 			<c:forEach items="${students}" var="student">
 				<tr>
-					<td width="100">${student.getId()}</td>
-					<td width="100">${student.getName()}</td>
-					<td width="100">${student.getDeptName()}</td>
-					<td width="100">${student.getTot()}</td>
+					<td width="100">${student.getSno}</td>
+					<td width="100">${student.getPno()}</td>
+					<td width="100">${student.getSname()}</td>
+					<td width="100">${student.getYear()}</td>
+					<td width="100">${student.getDept()}</td>
 				</tr>
 			</c:forEach>
 		</table>

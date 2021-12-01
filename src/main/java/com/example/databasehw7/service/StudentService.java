@@ -19,12 +19,7 @@ public class StudentService {
 	}
 
 	public Student save(Student student) {
-		studentRepository.saveOne(
-			student.getId(),
-			student.getName(),
-			student.getDeptName(),
-			student.getTot()
-		);
+		studentRepository.save(student);
 		return student;
 	}
 }
