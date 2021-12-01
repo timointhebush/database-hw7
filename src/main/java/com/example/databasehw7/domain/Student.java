@@ -2,7 +2,10 @@ package com.example.databasehw7.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,15 +22,15 @@ import lombok.Setter;
 public class Student {
 
 	@Id
-	@Column(name = "ID")
-	private String id;
+	private String sno;
 
-	@Column(name = "NAME")
-	private String name;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pno")
+	private Professor professor;
 
-	@Column(name = "DEPT_NAME")
-	private String deptName;
+	private String sname;
 
-	@Column(name = "TOT_CRED")
-	private Integer tot;
+	private Integer year;
+
+	private String dept;
 }
