@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: mac # 기본 환경 선택
+    active: local # 기본 환경 선택
 ---
 spring:
   profiles: local
