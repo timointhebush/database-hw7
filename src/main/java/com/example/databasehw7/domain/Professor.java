@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Professor {
 
 	@Id
-	private String pno;
+	private Integer pno;
 
 	private String pname;
 

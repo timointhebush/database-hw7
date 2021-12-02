@@ -22,7 +22,7 @@ import lombok.Setter;
 public class Student {
 
 	@Id
-	private String sno;
+	private Integer sno;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pno")
