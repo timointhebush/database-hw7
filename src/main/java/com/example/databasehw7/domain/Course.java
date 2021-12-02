@@ -24,5 +24,5 @@ public class Course {
 
 	private Integer credit;
 
-	private String sessions;
+	private Integer sessions;
 }
