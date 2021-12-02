@@ -18,6 +18,10 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 
+	public long count() {
+		return studentRepository.count();
+	}
+
 	public Student save(Student student) {
 		studentRepository.save(student);
 		return student;
