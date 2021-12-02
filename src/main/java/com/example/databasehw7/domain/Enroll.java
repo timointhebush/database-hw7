@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@IdClass(EnrollId.class)
 public class Enroll implements Serializable {
 
 	@Id

@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@IdClass(LectureId.class)
 public class Lecture implements Serializable {
 
 	@Id
