@@ -40,13 +40,13 @@ public class DatabaseController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/student")
-    public ModelAndView stu() {
-        ModelAndView modelAndView = new ModelAndView("selectTest");
-        List<Student> students = studentService.findAll();
-        modelAndView.addObject("students", students);
-        return modelAndView;
-    }
+    // @GetMapping(value = "/student")
+    // public ModelAndView stu() {
+    //     ModelAndView modelAndView = new ModelAndView("selectTest");
+    //     List<Student> students = studentService.findAll();
+    //     modelAndView.addObject("students", students);
+    //     return modelAndView;
+    // }
 
     @GetMapping(value = "/student/form")
     public ModelAndView FormStudent() {
