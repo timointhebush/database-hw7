@@ -1,8 +1,6 @@
 package com.example.databasehw7.domain;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +8,25 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Enroll {
+public class Enroll implements Serializable {
 
-	@EmbeddedId
-	private EnrollId enrollId;
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sno")
+	private Student student;
+
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cno")
+	private Course course;
 
 	private String grade;
 
