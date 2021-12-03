@@ -32,4 +32,18 @@ public class Enroll implements Serializable {
 	private String grade;
 
 	private Integer exam;
+
+	public void correctGrade() {
+		if (this.exam >= 90) {
+			this.grade = "A";
+		} else if (this.exam >= 80) {
+			this.grade = "B";
+		} else if (this.exam >= 70) {
+			this.grade = "C";
+		} else if (this.exam >= 60) {
+			this.grade = "D";
+		} else {
+			this.grade = "F";
+		}
+	}
 }
