@@ -26,4 +26,8 @@ public class StudentService {
 		studentRepository.save(student);
 		return student;
 	}
+
+	public Student getBySno(Integer sno) {
+		return studentRepository.getById(sno);
+	}
 }

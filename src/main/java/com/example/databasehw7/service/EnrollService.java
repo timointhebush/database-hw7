@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.databasehw7.domain.Enroll;
 import com.example.databasehw7.domain.EnrollId;
+import com.example.databasehw7.domain.Student;
 import com.example.databasehw7.repository.CourseRepository;
 import com.example.databasehw7.repository.EnrollRepository;
 import com.example.databasehw7.repository.StudentRepository;
@@ -50,5 +51,9 @@ public class EnrollService {
 		);
 		Enroll wrongEnroll = enrollRepository.getById(enrollId);
 		wrongEnroll.correctGrade();
+	}
+
+	public List<Enroll> findByStudent(Student student) {
+		return enrollRepository.findAllByStudent(student);
 	}
 }

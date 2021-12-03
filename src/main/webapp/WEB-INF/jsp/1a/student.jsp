@@ -22,7 +22,7 @@
 				<tr>
 					<td width="100">${student.getSno()}</td>
 					<td width="100">${student.getProfessor().getPno()}</td>
-					<td width="100">${student.getSname()}</td>
+					<td width="100"><a href="/student/enroll?sno=${student.getSno()}">${student.getSname()}</a></td>
 					<td width="100">${student.getYear()}</td>
 					<td width="100">${student.getDept()}</td>
 				</tr>
