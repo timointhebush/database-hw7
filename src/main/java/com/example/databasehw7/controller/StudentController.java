@@ -31,9 +31,35 @@ public class StudentController {
 	}
 
 	@GetMapping(value = "/student/enroll")
-	public ModelAndView ss(@RequestParam Integer sno) {
+	public ModelAndView studentsCourse(@RequestParam Integer sno) {
 		Student student = studentService.getBySno(sno);
 		List<Enroll> enrollList = enrollService.findByStudent(student);
+		ModelAndView modelAndView = new ModelAndView("1bStudentEnrollCourse");
+		modelAndView.addObject("student", student);
+		modelAndView.addObject("enrollList", enrollList);
+		return modelAndView;
+	}
+
+	@GetMapping(value = "/student/enroll/search/cname")
+	public ModelAndView searchCname(@RequestParam Integer sno, @RequestParam String cname) {
+		List<Enroll> enrollList = enrollService.searchBySnoAndCname(sno, cname);
+		return searchReturnMaV(sno, enrollList);
+	}
+
+	@GetMapping(value = "/student/enroll/search/credit")
+	public ModelAndView searchCredit(@RequestParam Integer sno, @RequestParam Integer credit) {
+		List<Enroll> enrollList = enrollService.searchBySnoAndCredit(sno, credit);
+		return searchReturnMaV(sno, enrollList);
+	}
+
+	@GetMapping(value = "/student/enroll/search/exam")
+	public ModelAndView searchExam(@RequestParam Integer sno, @RequestParam Integer exam) {
+		List<Enroll> enrollList = enrollService.searchBySnoAndExam(sno, exam);
+		return searchReturnMaV(sno, enrollList);
+	}
+
+	public ModelAndView searchReturnMaV(Integer sno, List<Enroll> enrollList) {
+		Student student = studentService.getBySno(sno);
 		ModelAndView modelAndView = new ModelAndView("1bStudentEnrollCourse");
 		modelAndView.addObject("student", student);
 		modelAndView.addObject("enrollList", enrollList);

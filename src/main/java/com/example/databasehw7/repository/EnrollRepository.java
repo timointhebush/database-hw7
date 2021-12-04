@@ -17,13 +17,24 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 	)
 	List<Enroll> findWrongGraded(String grade, Integer examFrom, Integer examTo);
 
+	List<Enroll> findAllByStudent(Student student);
+
 	@Query(
 		value = "select * from Enroll e "
-			+ "join e.course c "
-			+ "where e.student = ?1 and (c.cname like %?2% or e.grade = ?3 or e.exam = ?4)",
-		nativeQuery = true
-	)
-	List<Enroll> findByStudentAndSearch(Student student, String cname, String grade, Integer exam);
+			+ "join Course c on e.cno = c.cno "
+			+ "where e.sno = ?1 and c.cname like %?2%",
+		nativeQuery = true)
+	List<Enroll> findAllByStudentAndCname(Integer sno, String cname);
 
-	List<Enroll> findAllByStudent(Student student);
+	@Query(
+		value = "select * from Enroll e "
+			+ "join Course c on e.cno = c.cno "
+			+ "where e.sno = ?1 and c.credit = ?2",
+		nativeQuery = true)
+	List<Enroll> findAllByStudentAndCredit(Integer sno, Integer credit);
+
+	@Query(
+		value = "select * from Enroll e where e.sno = ?1 and e.exam = ?2",
+		nativeQuery = true)
+	List<Enroll> findAllByStudentAndExam(Integer sno, Integer exam);
 }

@@ -56,4 +56,16 @@ public class EnrollService {
 	public List<Enroll> findByStudent(Student student) {
 		return enrollRepository.findAllByStudent(student);
 	}
+
+	public List<Enroll> searchBySnoAndCname(Integer sno, String cname) {
+		return enrollRepository.findAllByStudentAndCname(sno, cname);
+	}
+
+	public List<Enroll> searchBySnoAndCredit(Integer sno, Integer credit) {
+		return enrollRepository.findAllByStudentAndCredit(sno, credit);
+	}
+
+	public List<Enroll> searchBySnoAndExam(Integer sno, Integer exam) {
+		return enrollRepository.findAllByStudentAndExam(sno, exam);
+	}
 }

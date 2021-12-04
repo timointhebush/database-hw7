@@ -10,12 +10,26 @@
 	<body>
 		<h1>1-b ${student.getSname()}가 수강하는 Course</h1>
 		<h2>검색하기</h2>
-		<form method="get" action="/student/enroll">
-			<p>Course 이름 : <input type="text" name="cname"></p>
-			<p>학점 : <input type="text" name="credit"></p>
-			<p>성적 : <input type="text" name="grade"></p>
-			<p>시험 점수 : <input type="text" name="exam"></p>
-			<p><input type="submit" name="Submit" value="검색"></p>
+		<form method="get" action="/student/enroll/search/cname">
+			<input type="hidden" name="sno" value="${student.getSno()}">
+			<p>Course 이름 :
+				<input type="text" name="cname">
+				<input type="submit" name="Submit" value="검색">
+			</p>
+		</form>
+		<form method="get" action="/student/enroll/search/credit">
+			<input type="hidden" name="sno" value="${student.getSno()}">
+			<p>학점 :
+				<input type="text" name="credit">
+				<input type="submit" name="Submit" value="검색">
+			</p>
+		</form>
+		<form method="get" action="/student/enroll/search/exam">
+			<input type="hidden" name="sno" value="${student.getSno()}">
+			<p>시험 점수 :
+				<input type="text" name="exam">
+				<input type="submit" name="Submit" value="검색">
+			</p>
 		</form>
 
 		<table width="500" border="1">
