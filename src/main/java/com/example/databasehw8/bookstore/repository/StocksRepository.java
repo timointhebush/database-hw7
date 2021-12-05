@@ -17,4 +17,13 @@ public interface StocksRepository extends JpaRepository<Stocks, StocksId> {
         nativeQuery = true
     )
     public List<Stocks> findAllByAuthor(String name, String address);
+
+    @Query(
+            value = "select * from Stocks s " +
+                    "   join Book b on s.isbn = b.isbn " +
+                    "   join Published_By p on b.isbn = p.isbn " +
+                    "where p.name = ?1 ",
+            nativeQuery = true
+    )
+    public List<Stocks> findAllByPublisher(String name);
 }
