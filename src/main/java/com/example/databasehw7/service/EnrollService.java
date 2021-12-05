@@ -2,8 +2,6 @@ package com.example.databasehw7.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.databasehw7.domain.Enroll;
 import com.example.databasehw7.domain.EnrollId;
 import com.example.databasehw7.domain.Student;
+import com.example.databasehw7.projection.SumCreditMeanExam;
 import com.example.databasehw7.repository.CourseRepository;
 import com.example.databasehw7.repository.EnrollRepository;
 import com.example.databasehw7.repository.StudentRepository;
@@ -67,5 +66,16 @@ public class EnrollService {
 
 	public List<Enroll> searchBySnoAndExam(Integer sno, Integer exam) {
 		return enrollRepository.findAllByStudentAndExam(sno, exam);
+	}
+
+	public List<Enroll> searchByMinMaxExamStudent() {
+		List<Enroll> enrollList = new ArrayList<>();
+		enrollList.addAll(enrollRepository.findAllMinExam());
+		enrollList.addAll(enrollRepository.findAllMaxExam());
+		return enrollList;
+	}
+
+	public List<SumCreditMeanExam> searchBySumCreditMeanExam() {
+		return enrollRepository.findStudentSumCreditMeanExam();
 	}
 }

@@ -3,13 +3,12 @@ package com.example.databasehw7.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.databasehw7.domain.Enroll;
+import com.example.databasehw7.projection.SumCreditMeanExam;
 import com.example.databasehw7.service.EnrollService;
 
 import lombok.AllArgsConstructor;
@@ -41,5 +40,29 @@ public class EnrollController {
 	public ModelAndView correctGrade(@RequestParam Integer sno, @RequestParam String cno) {
 		enrollService.correctWrongGrade(sno, cno);
 		return wrongGraded();
+	}
+
+	/**
+	 * 1.-d) 과목별로 최고, 최저 점수를 획득 한 학생의 정보 확인
+	 * @return
+	 */
+	@GetMapping(value = "/enroll/minmax")
+	public ModelAndView showMinMaxExam() {
+		List<Enroll> enrollList = enrollService.searchByMinMaxExamStudent();
+		ModelAndView modelAndView = new ModelAndView("1dMinMaxExam");
+		modelAndView.addObject("enrollList", enrollList);
+		return modelAndView;
+	}
+
+	/**
+	 * 1 -e) 학생 별로 수강한 교과목의 총 학점과, 시험 점수의 평균 확인
+	 * @return
+	 */
+	@GetMapping(value = "/enroll/sumcredit-avgexam")
+	public ModelAndView showSumCreditAvgExam() {
+		List<SumCreditMeanExam> sumCreditMeanExams = enrollService.searchBySumCreditMeanExam();
+		ModelAndView modelAndView = new ModelAndView("1eSumCreditMeanExam");
+		modelAndView.addObject("sumCreditMeanExams", sumCreditMeanExams);
+		return modelAndView;
 	}
 }
