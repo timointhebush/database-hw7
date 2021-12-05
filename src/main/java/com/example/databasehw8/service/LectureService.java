@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.databasehw8.domain.Lecture;
+import com.example.databasehw8.projection.CntCnoByMajor;
 import com.example.databasehw8.repository.LectureRepository;
 
 import lombok.AllArgsConstructor;
@@ -20,5 +21,9 @@ public class LectureService {
 
 	public long count() {
 		return lectureRepository.count();
+	}
+
+	public List<CntCnoByMajor> findCntCnoByMajor() {
+		return lectureRepository.findCntLec();
 	}
 }
