@@ -9,15 +9,15 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.databasehw8.domain.Course;
-import com.example.databasehw8.domain.Enroll;
-import com.example.databasehw8.domain.EnrollId;
-import com.example.databasehw8.domain.Student;
-import com.example.databasehw8.projection.MeanExamByCno;
-import com.example.databasehw8.projection.SumCreditMeanExam;
-import com.example.databasehw8.repository.CourseRepository;
-import com.example.databasehw8.repository.EnrollRepository;
-import com.example.databasehw8.repository.StudentRepository;
+import com.example.databasehw8.university.domain.Course;
+import com.example.databasehw8.university.domain.Enroll;
+import com.example.databasehw8.university.domain.EnrollId;
+import com.example.databasehw8.university.domain.Student;
+import com.example.databasehw8.university.projection.MeanExamByCno;
+import com.example.databasehw8.university.projection.SumCreditMeanExam;
+import com.example.databasehw8.university.repository.CourseRepository;
+import com.example.databasehw8.university.repository.EnrollRepository;
+import com.example.databasehw8.university.repository.StudentRepository;
 
 
 @Transactional
