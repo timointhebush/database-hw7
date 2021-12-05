@@ -11,13 +11,13 @@ import java.util.List;
 
 public interface ContainsRepository extends JpaRepository<Contains, ContainsId> {
     @Query(
-            value = "select b.name bname, p.name pname, w.name aname " +
-                    "from Contains c " +
-                    "   join Book b on c.isbn = b.isbn " +
-                    "   join Basket_of bo on b.basketid = bo.basketid " +
-                    "   join Written_by w on b.isbn = b.isbn " +
-                    "   join Published_by p on b.isbn = p.isbn" +
-                    "where bo.email = ?1 ",
+            value = "select b.title bname, p.name pname, w.name aname " +
+                    "from Book b "
+                +   "join Written_by w on b.isbn = w.isbn "
+                +   "join Contains c on c.isbn = b.isbn "
+                +   "join Published_by p on b.isbn = p.isbn " +
+                    "where c.basketid = ( "
+                +       "select bo.basketid from Basket_of bo where bo.email = ?1) ",
             nativeQuery = true
     )
     public List<BookPublisherAuthor> findAllByCustomer(String email);

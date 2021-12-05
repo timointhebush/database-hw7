@@ -26,7 +26,7 @@ public class PublisherController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/publisher/book/")
+    @GetMapping(value = "/publisher/book")
     public ModelAndView publisherBooks(@RequestParam String name) {
         List<Stocks> stocksList = stocksRepository.findAllByPublisher(name);
         Publisher publisher = publisherRepository.getById(name);

@@ -29,6 +29,7 @@ public class CustomerController {
 
     @GetMapping(value = "/customer/book")
     public ModelAndView customerBooks(@RequestParam String email) {
+        System.out.println(email);
         List<BookPublisherAuthor> bookPublisherAuthors = containsRepository.findAllByCustomer(email);
         Customer customer = customerRepository.getById(email);
         ModelAndView modelAndView = new ModelAndView("2cCustomerBooks");
