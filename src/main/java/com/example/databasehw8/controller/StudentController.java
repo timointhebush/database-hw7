@@ -2,6 +2,8 @@ package com.example.databasehw8.controller;
 
 import java.util.List;
 
+import com.example.databasehw8.projection.CntSnoByDept;
+import com.example.databasehw8.projection.CntSnoByYear;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +65,30 @@ public class StudentController {
 		ModelAndView modelAndView = new ModelAndView("1bStudentEnrollCourse");
 		modelAndView.addObject("student", student);
 		modelAndView.addObject("enrollList", enrollList);
+		return modelAndView;
+	}
+
+	/**
+	 * 1-h) 학년 별 총 학생 수 확인
+	 * @return
+	 */
+	@GetMapping(value = "/student/year")
+	public ModelAndView getCntSnoByYear() {
+		List<CntSnoByYear> cntSnoByYears = studentService.getCntSnoByYear();
+		ModelAndView modelAndView = new ModelAndView("1hCntSnoByYear");
+		modelAndView.addObject("cntSnoByYears", cntSnoByYears);
+		return modelAndView;
+	}
+
+	/**
+	 * 1-h) 전공 별 총 학생 수 확인
+	 * @return
+	 */
+	@GetMapping(value = "/student/dept")
+	public ModelAndView getCntSnoByDept() {
+		List<CntSnoByDept> cntSnoByDepts = studentService.getCntSnoByDept();
+		ModelAndView modelAndView = new ModelAndView("1hCntSnoByDept");
+		modelAndView.addObject("cntSnoByDepts", cntSnoByDepts);
 		return modelAndView;
 	}
 }

@@ -2,6 +2,9 @@ package com.example.databasehw8.service;
 
 import java.util.List;
 
+import com.example.databasehw8.projection.CntSnoByDept;
+import com.example.databasehw8.projection.CntSnoByYear;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.databasehw8.domain.Student;
@@ -30,4 +33,12 @@ public class StudentService {
 	public Student getBySno(Integer sno) {
 		return studentRepository.getById(sno);
 	}
+
+	public List<CntSnoByYear> getCntSnoByYear() {
+		return studentRepository.getCntSnoByYear();
+	};
+
+	public List<CntSnoByDept> getCntSnoByDept() {
+		return studentRepository.getCntSnoByDept();
+	};
 }
