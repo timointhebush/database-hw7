@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.databasehw8.domain.Enroll;
 import com.example.databasehw8.domain.EnrollId;
 import com.example.databasehw8.domain.Student;
+import com.example.databasehw8.projection.CntSnoByGrade;
+import com.example.databasehw8.projection.MeanExamByCno;
 import com.example.databasehw8.projection.SumCreditMeanExam;
 
 public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
@@ -66,4 +68,21 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 		nativeQuery = true
 	)
 	List<SumCreditMeanExam> findStudentSumCreditMeanExam();
+
+	@Query(
+		value = "select e.cno cno, avg(e.exam) meanExam "
+			+ "from Enroll e "
+			+ "group by e.cno",
+		nativeQuery = true
+	)
+	List<MeanExamByCno> findMeanExamByCno();
+
+	@Query(
+		value = "select e.cno cno, e.grade grade, count(e.sno) cntSno "
+			+ "from Enroll e "
+			+ "group by e.cno, e.grade "
+			+ "having e.cno = ?1",
+		nativeQuery = true
+	)
+	List<CntSnoByGrade> findCntSnoByGrade(String cno);
 }

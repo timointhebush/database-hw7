@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.databasehw8.domain.Enroll;
 import com.example.databasehw8.domain.EnrollId;
 import com.example.databasehw8.domain.Student;
+import com.example.databasehw8.projection.CntSnoByGrade;
+import com.example.databasehw8.projection.MeanExamByCno;
 import com.example.databasehw8.projection.SumCreditMeanExam;
 import com.example.databasehw8.repository.CourseRepository;
 import com.example.databasehw8.repository.EnrollRepository;
@@ -77,5 +79,13 @@ public class EnrollService {
 
 	public List<SumCreditMeanExam> searchBySumCreditMeanExam() {
 		return enrollRepository.findStudentSumCreditMeanExam();
+	}
+
+	public List<MeanExamByCno> searchMeanExamByCno() {
+		return enrollRepository.findMeanExamByCno();
+	}
+
+	public List<CntSnoByGrade> searchCntSnoByGrade(String cno) {
+		return enrollRepository.findCntSnoByGrade(cno);
 	}
 }

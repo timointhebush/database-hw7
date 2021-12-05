@@ -21,4 +21,8 @@ public class CourseService {
 	public long count() {
 		return courseRepository.count();
 	}
+
+	public Course getById(String cno) {
+		return courseRepository.getById(cno);
+	}
 }

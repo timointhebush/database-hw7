@@ -13,6 +13,7 @@ import com.example.databasehw8.domain.Course;
 import com.example.databasehw8.domain.Enroll;
 import com.example.databasehw8.domain.EnrollId;
 import com.example.databasehw8.domain.Student;
+import com.example.databasehw8.projection.MeanExamByCno;
 import com.example.databasehw8.projection.SumCreditMeanExam;
 import com.example.databasehw8.repository.CourseRepository;
 import com.example.databasehw8.repository.EnrollRepository;
@@ -46,5 +47,11 @@ public class EnrollTest {
 	public void group_byTest() {
 		List<SumCreditMeanExam> enrollList = enrollRepository.findStudentSumCreditMeanExam();
 		System.out.println(enrollList.toString());
+	}
+
+	@Test
+	public void 과제1fTest() {
+		List<MeanExamByCno> meanExamByCnos = enrollRepository.findMeanExamByCno();
+		System.out.println(meanExamByCnos.toString());
 	}
 }

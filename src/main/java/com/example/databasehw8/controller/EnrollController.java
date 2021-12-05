@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.databasehw8.domain.Course;
 import com.example.databasehw8.domain.Enroll;
+import com.example.databasehw8.projection.CntSnoByGrade;
+import com.example.databasehw8.projection.MeanExamByCno;
 import com.example.databasehw8.projection.SumCreditMeanExam;
+import com.example.databasehw8.service.CourseService;
 import com.example.databasehw8.service.EnrollService;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +21,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EnrollController {
 	private EnrollService enrollService;
+	private CourseService courseService;
 
 	@GetMapping(value = "/enroll")
 	public ModelAndView showDataAndCount() {
@@ -63,6 +68,33 @@ public class EnrollController {
 		List<SumCreditMeanExam> sumCreditMeanExams = enrollService.searchBySumCreditMeanExam();
 		ModelAndView modelAndView = new ModelAndView("1eSumCreditMeanExam");
 		modelAndView.addObject("sumCreditMeanExams", sumCreditMeanExams);
+		return modelAndView;
+	}
+
+	/**
+	 * 1 - f) 과목 별 전체 평균 점수 확인
+	 * @return
+	 */
+	@GetMapping(value = "/enroll/avg-exam")
+	public ModelAndView showMeanExamByCno() {
+		List<MeanExamByCno> meanExamByCnos = enrollService.searchMeanExamByCno();
+		ModelAndView modelAndView = new ModelAndView("1fMeanExamByCno");
+		modelAndView.addObject("meanExamByCnos", meanExamByCnos);
+		return modelAndView;
+	}
+
+	/**
+	 * 1- f) 해당 과목 성적 별 학생 수 확인
+	 * @param cno 확인하고자 하는 과목 번호
+	 * @return
+	 */
+	@GetMapping(value = "/enroll/avg-exam/grade")
+	public ModelAndView showCntStudentByGrade(@RequestParam String cno) {
+		List<CntSnoByGrade> cntSnoByGrades = enrollService.searchCntSnoByGrade(cno);
+		Course course = courseService.getById(cno);
+		ModelAndView modelAndView = new ModelAndView("1fCntSnoByGrade");
+		modelAndView.addObject("cname", course.getCname());
+		modelAndView.addObject("cntSnoByGrades", cntSnoByGrades);
 		return modelAndView;
 	}
 }
