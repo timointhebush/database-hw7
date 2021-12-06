@@ -19,6 +19,7 @@ import com.example.databasehw8.bookstore.domain.Warehouse;
 import com.example.databasehw8.bookstore.domain.Written_by;
 import com.example.databasehw8.bookstore.projection.AvgBookPrice;
 import com.example.databasehw8.bookstore.projection.AvgBookPriceByYear;
+import com.example.databasehw8.bookstore.projection.CntMinMaxAvgByAuthor;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.repository.BookRepository;
 import com.example.databasehw8.bookstore.repository.PublisherRepository;
@@ -66,6 +67,14 @@ public class BookController {
 		ModelAndView modelAndView = new ModelAndView("2eAvgPrice");
 		modelAndView.addObject("avgBookPrices", avgBookPrices);
 		modelAndView.addObject("avgBookPriceByYears", avgBookPriceByYears);
+		return modelAndView;
+	}
+
+	@GetMapping(value = "/book/author")
+	public ModelAndView cntMinMaxAvgByAuthor() {
+		List<CntMinMaxAvgByAuthor> cntMinMaxAvgByAuthors = bookRepository.getCntMinMaxAvgByAuthor();
+		ModelAndView modelAndView = new ModelAndView("2fBookByAuthor");
+		modelAndView.addObject("cntMinMaxAvgByAuthors", cntMinMaxAvgByAuthors);
 		return modelAndView;
 	}
 }
