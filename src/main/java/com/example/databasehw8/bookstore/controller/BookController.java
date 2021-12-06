@@ -17,6 +17,8 @@ import com.example.databasehw8.bookstore.domain.Published_by;
 import com.example.databasehw8.bookstore.domain.Publisher;
 import com.example.databasehw8.bookstore.domain.Warehouse;
 import com.example.databasehw8.bookstore.domain.Written_by;
+import com.example.databasehw8.bookstore.projection.AvgBookPrice;
+import com.example.databasehw8.bookstore.projection.AvgBookPriceByYear;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.repository.BookRepository;
 import com.example.databasehw8.bookstore.repository.PublisherRepository;
@@ -54,6 +56,16 @@ public class BookController {
 		modelAndView.addObject("book", book);
 		modelAndView.addObject("author", author);
 		modelAndView.addObject("publisher", publisher);
+		return modelAndView;
+	}
+
+	@GetMapping(value = "/book/price")
+	public ModelAndView avgPrice() {
+		List<AvgBookPrice> avgBookPrices = bookRepository.getAvgPrice();
+		List<AvgBookPriceByYear> avgBookPriceByYears = bookRepository.getAvgPriceByYear();
+		ModelAndView modelAndView = new ModelAndView("2eAvgPrice");
+		modelAndView.addObject("avgBookPrices", avgBookPrices);
+		modelAndView.addObject("avgBookPriceByYears", avgBookPriceByYears);
 		return modelAndView;
 	}
 }
