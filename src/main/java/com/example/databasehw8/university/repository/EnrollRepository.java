@@ -14,6 +14,13 @@ import com.example.databasehw8.university.projection.SumCreditMeanExam;
 
 public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 
+	/**
+	 * 잘못 학점이 설정된 Enroll을 반환
+	 * @param grade
+	 * @param examFrom
+	 * @param examTo
+	 * @return
+	 */
 	@Query(
 		value = "select * from Enroll e where e.grade = ?1 and (e.exam < ?2 or e.exam > ?3)",
 		nativeQuery = true
@@ -22,6 +29,12 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 
 	List<Enroll> findAllByStudent(Student student);
 
+	/**
+	 * 학생 번호와 수강하는 Course 이름으로 검색
+	 * @param sno
+	 * @param cname
+	 * @return
+	 */
 	@Query(
 		value = "select * from Enroll e "
 			+ "join Course c on e.cno = c.cno "
@@ -29,6 +42,12 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 		nativeQuery = true)
 	List<Enroll> findAllByStudentAndCname(Integer sno, String cname);
 
+	/**
+	 * 학생 번호와 Credit으로 검색
+	 * @param sno
+	 * @param credit
+	 * @return
+	 */
 	@Query(
 		value = "select * from Enroll e "
 			+ "join Course c on e.cno = c.cno "
@@ -36,11 +55,21 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 		nativeQuery = true)
 	List<Enroll> findAllByStudentAndCredit(Integer sno, Integer credit);
 
+	/**
+	 * 학생 번호와 exam으로 검색
+	 * @param sno
+	 * @param exam
+	 * @return
+	 */
 	@Query(
 		value = "select * from Enroll e where e.sno = ?1 and e.exam = ?2",
 		nativeQuery = true)
 	List<Enroll> findAllByStudentAndExam(Integer sno, Integer exam);
 
+	/**
+	 * 최고 점수를 받은 학생들을 반환
+	 * @return
+	 */
 	@Query(
 		value = "select * "
 			+ "from Enroll e "
@@ -50,6 +79,10 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 	)
 	List<Enroll> findAllMaxExam();
 
+	/**
+	 * 최저 점수를 받은 학생들을 반환
+	 * @return
+	 */
 	@Query(
 		value = "select * "
 			+ "from Enroll e "
@@ -59,6 +92,10 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 	)
 	List<Enroll> findAllMinExam();
 
+	/**
+	 * Credit 합과 평균 시험 점수를 반환
+	 * @return
+	 */
 	@Query(
 		value = "select s.sno sno, sum(c.credit) sumCredit, avg(e.exam) meanExam "
 			+ "from Enroll e "
@@ -69,6 +106,10 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 	)
 	List<SumCreditMeanExam> findStudentSumCreditMeanExam();
 
+	/**
+	 * cno에 따른 평균 시험 점수를 반환
+	 * @return
+	 */
 	@Query(
 		value = "select e.cno cno, avg(e.exam) meanExam "
 			+ "from Enroll e "
@@ -77,6 +118,11 @@ public interface EnrollRepository extends JpaRepository<Enroll, EnrollId> {
 	)
 	List<MeanExamByCno> findMeanExamByCno();
 
+	/**
+	 * 학년에 따른 학생 수를 반환
+	 * @param cno
+	 * @return
+	 */
 	@Query(
 		value = "select e.cno cno, e.grade grade, count(e.sno) cntSno "
 			+ "from Enroll e "

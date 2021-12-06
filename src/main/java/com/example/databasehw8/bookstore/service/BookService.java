@@ -40,7 +40,11 @@ public class BookService {
 	private Written_byRepository written_byRepository;
 	private Published_byRepository published_byRepository;
 
-
+	/**
+	 * Request에서 재고 값이 있는 경우, 해당 창고에 도서의 재고 값을 추가
+	 * @param httpServletRequest
+	 * @param book
+	 */
 	public void registerStocks(HttpServletRequest httpServletRequest, Book book) {
 		List<Warehouse> warehouseList = warehouseRepository.findAll();
 		for (Warehouse warehouse : warehouseList) {
@@ -53,6 +57,8 @@ public class BookService {
 			}
 		}
 	}
+
+	// 하단부터 새로운 도서를 추가하는 Service
 
 	public Published_by registerPublished_by(Publisher publisher, Book book) {
 		Published_byId published_byId = new Published_byId(publisher, book);
@@ -96,6 +102,11 @@ public class BookService {
 		return bookRepository.saveAndFlush(book);
 	}
 
+	/**
+	 * 원하는 할인율만큼 가격을 업데이트
+	 * @param bookList
+	 * @param discountRate
+	 */
 	@Transactional
 	public void updatePrice(List<Book> bookList, double discountRate) {
 		for (Book book : bookList) {

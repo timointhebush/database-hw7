@@ -18,12 +18,21 @@ public interface BookRepository extends JpaRepository<Book, String> {
 	@Query(value = "select b.year year, avg(b.price) avgPrice from Book b group by b.year ", nativeQuery = true)
 	public List<AvgBookPriceByYear> getAvgPriceByYear();
 
+	/**
+	 * 작가 별 도서 갯수와 도서의 최고, 최저, 평균 가격을 반환
+	 * @return
+	 */
 	@Query(value = "select w.name aname, count(b.isbn) cnt, "
 		+ "max(b.price) maxPrice, min(b.price) minPrice, avg(b.price) avgPrice "
 		+ "from Book b join Written_by w on b.isbn = w.isbn "
 		+ "group by w.name ", nativeQuery = true)
 	public List<CntMinMaxAvgByAuthor> getCntMinMaxAvgByAuthor();
 
+	/**
+	 * pivotNum보다 많은 재고의 도서를 반환
+	 * @param pivotNum
+	 * @return
+	 */
 	@Query(value = "select *"
 		+ "from Book b2 where b2.isbn in ("
 		+ "     select b.isbn "

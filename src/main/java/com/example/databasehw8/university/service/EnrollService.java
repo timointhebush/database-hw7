@@ -34,6 +34,10 @@ public class EnrollService {
 		return enrollRepository.count();
 	}
 
+	/**
+	 * 각 성적 별 잘못 채점된 것들을 찾아 합쳐 반환.
+	 * @return
+	 */
 	public List<Enroll> findWrongGraded() {
 		List<Enroll> wrongGradedEnrollList = new ArrayList<>();
 		wrongGradedEnrollList.addAll(enrollRepository.findWrongGraded("A", 90, 100));
