@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.databasehw8.bookstore.domain.Author;
 import com.example.databasehw8.bookstore.domain.AuthorId;
 import com.example.databasehw8.bookstore.domain.Book;
+import com.example.databasehw8.bookstore.domain.Published_by;
 import com.example.databasehw8.bookstore.domain.Publisher;
 import com.example.databasehw8.bookstore.domain.Warehouse;
+import com.example.databasehw8.bookstore.domain.Written_by;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.repository.BookRepository;
 import com.example.databasehw8.bookstore.repository.PublisherRepository;
@@ -42,25 +44,16 @@ public class BookController {
 
 	@PostMapping(value = "/book/register")
 	public ModelAndView registerBook(HttpServletRequest httpServletRequest) {
-		try {
-			bookService.registerBook(httpServletRequest);
-			String isbn = httpServletRequest.getParameter("isbn");
-			Book book = bookRepository.getById(isbn);
-
-			String aName = httpServletRequest.getParameter("aName");
-			String aAddress = httpServletRequest.getParameter("aAddress");
-			Author author = authorRepository.getById(new AuthorId(aName, aAddress));
-
-			String pName = httpServletRequest.getParameter("pName");
-			Publisher publisher = publisherRepository.getById(pName);
-			ModelAndView modelAndView = new ModelAndView("2dAfterRegister");
-			modelAndView.addObject("book", book);
-			modelAndView.addObject("author", author);
-			modelAndView.addObject("publisher", publisher);
-			return modelAndView;
-		} catch (Exception e) {
-			return new ModelAndView("2dAfterRegister");
-		}
-
+		Book book = bookService.registerBook(httpServletRequest);
+		Author author = bookService.registerAuthor(httpServletRequest);
+		// Written_by written_by = bookService.registerWritten_by(author, book);
+		Publisher publisher = bookService.registerPublisher(httpServletRequest);
+		// Published_by published_by = bookService.registerPublished_by(publisher, book);
+		ModelAndView modelAndView = new ModelAndView("2dAfterRegister");
+		bookService.registerStocks(httpServletRequest, book);
+		modelAndView.addObject("book", book);
+		modelAndView.addObject("author", author);
+		modelAndView.addObject("publisher", publisher);
+		return modelAndView;
 	}
 }
