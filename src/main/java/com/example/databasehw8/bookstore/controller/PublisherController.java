@@ -18,6 +18,10 @@ public class PublisherController {
     private PublisherRepository publisherRepository;
     private StocksRepository stocksRepository;
 
+    /**
+     * 모든 출판사 정보 확인
+     * @return
+     */
     @GetMapping(value = "/publisher")
     public ModelAndView publishers() {
         List<Publisher> publisherList = publisherRepository.findAll();
@@ -26,6 +30,11 @@ public class PublisherController {
         return modelAndView;
     }
 
+    /**
+     * 해당 출판사에서 출판한 책들의 정보 확인
+     * @param name
+     * @return
+     */
     @GetMapping(value = "/publisher/book")
     public ModelAndView publisherBooks(@RequestParam String name) {
         List<Stocks> stocksList = stocksRepository.findAllByPublisher(name);

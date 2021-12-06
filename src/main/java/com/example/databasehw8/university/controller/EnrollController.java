@@ -23,6 +23,10 @@ public class EnrollController {
 	private EnrollService enrollService;
 	private CourseService courseService;
 
+	/**
+	 * 1-a) Enroll Table에 존재하는 Data, Tuple 총 갯수 확인.
+	 * @return
+	 */
 	@GetMapping(value = "/enroll")
 	public ModelAndView showDataAndCount() {
 		List<Enroll> enrollList = enrollService.findAll();
@@ -33,6 +37,10 @@ public class EnrollController {
 		return modelAndView;
 	}
 
+	/**
+	 * 1-c) 시험 점수에 대한 학점이 잘못 기재되어 있는 학생 확인
+	 * @return
+	 */
 	@GetMapping(value = "/enroll/wrong")
 	public ModelAndView wrongGraded() {
 		List<Enroll> wrongGradedEnrollList = enrollService.findWrongGraded();
@@ -41,6 +49,12 @@ public class EnrollController {
 		return modelAndView;
 	}
 
+	/**
+	 * 1-c) 잘못 기재 된 학생의 학점을 수정
+	 * @param sno
+	 * @param cno
+	 * @return
+	 */
 	@GetMapping(value = "/enroll/wrong/correct")
 	public ModelAndView correctGrade(@RequestParam Integer sno, @RequestParam String cno) {
 		enrollService.correctWrongGrade(sno, cno);

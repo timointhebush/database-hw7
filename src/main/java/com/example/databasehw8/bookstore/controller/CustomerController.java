@@ -19,6 +19,10 @@ public class CustomerController {
     private CustomerRepository customerRepository;
     private ContainsRepository containsRepository;
 
+    /**
+     * 모든 고객의 정보 확인
+     * @return
+     */
     @GetMapping(value = "/customer")
     public ModelAndView customers() {
         List<Customer> customerList = customerRepository.findAll();
@@ -27,6 +31,11 @@ public class CustomerController {
         return modelAndView;
     }
 
+    /**
+     * 특정 고객이 주문한 도서 정보 확인
+     * @param email
+     * @return
+     */
     @GetMapping(value = "/customer/book")
     public ModelAndView customerBooks(@RequestParam String email) {
         System.out.println(email);

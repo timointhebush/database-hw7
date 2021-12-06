@@ -2,20 +2,22 @@ package com.example.databasehw8.bookstore.service;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.databasehw8.bookstore.domain.Author;
-import com.example.databasehw8.bookstore.domain.AuthorId;
 import com.example.databasehw8.bookstore.domain.Book;
 import com.example.databasehw8.bookstore.domain.Published_by;
 import com.example.databasehw8.bookstore.domain.Publisher;
 import com.example.databasehw8.bookstore.domain.Stocks;
 import com.example.databasehw8.bookstore.domain.Warehouse;
 import com.example.databasehw8.bookstore.domain.Written_by;
+import com.example.databasehw8.bookstore.domain.id.AuthorId;
+import com.example.databasehw8.bookstore.domain.id.Published_byId;
+import com.example.databasehw8.bookstore.domain.id.StocksId;
+import com.example.databasehw8.bookstore.domain.id.Written_byId;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.repository.BookRepository;
 import com.example.databasehw8.bookstore.repository.Published_byRepository;
@@ -45,19 +47,22 @@ public class BookService {
 			String parameter = warehouse.getCode() + "Num";
 			String num = httpServletRequest.getParameter(parameter);
 			if (num != "") {
-				Stocks stocks = new Stocks(book, warehouse, Integer.parseInt(num));
+				StocksId stocksId = new StocksId(book, warehouse);
+				Stocks stocks = new Stocks(stocksId, Integer.parseInt(num));
 				stocksRepository.saveAndFlush(stocks);
 			}
 		}
 	}
 
 	public Published_by registerPublished_by(Publisher publisher, Book book) {
-		Published_by published_by = new Published_by(publisher, book);
+		Published_byId published_byId = new Published_byId(publisher, book);
+		Published_by published_by = new Published_by(published_byId);
 		return published_byRepository.save(published_by);
 	}
 
 	public Written_by registerWritten_by(Author author, Book book) {
-		Written_by written_by = new Written_by(author, book);
+		Written_byId written_byId = new Written_byId(author, book);
+		Written_by written_by = new Written_by(written_byId);
 		return written_byRepository.save(written_by);
 	}
 
@@ -74,9 +79,10 @@ public class BookService {
 	public Author registerAuthor(HttpServletRequest httpServletRequest) {
 		String aName = httpServletRequest.getParameter("aName");
 		String aAddress = httpServletRequest.getParameter("aAddress");
-		Author author = new Author(aName, aAddress,
+		AuthorId authorId = new AuthorId(aName, aAddress);
+		Author author = new Author(authorId,
 			httpServletRequest.getParameter("aUrl"));
-		return authorRepository.save(author);
+		return authorRepository.saveAndFlush(author);
 	}
 
 	@Transactional
@@ -87,6 +93,6 @@ public class BookService {
 			Integer.parseInt(httpServletRequest.getParameter("year")),
 			Integer.parseInt(httpServletRequest.getParameter("price"))
 		);
-		return bookRepository.save(book);
+		return bookRepository.saveAndFlush(book);
 	}
 }

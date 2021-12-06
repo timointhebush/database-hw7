@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.databasehw8.bookstore.domain.Author;
 import com.example.databasehw8.bookstore.domain.Book;
+import com.example.databasehw8.bookstore.domain.Published_by;
 import com.example.databasehw8.bookstore.domain.Publisher;
 import com.example.databasehw8.bookstore.domain.Warehouse;
+import com.example.databasehw8.bookstore.domain.Written_by;
 import com.example.databasehw8.bookstore.projection.AvgBookPrice;
 import com.example.databasehw8.bookstore.projection.AvgBookPriceByYear;
 import com.example.databasehw8.bookstore.projection.CntMinMaxAvgByAuthor;
@@ -37,6 +39,10 @@ public class BookController {
 	private PublisherRepository publisherRepository;
 	private StocksRepository stocksRepository;
 
+	/**
+	 * 2-f) 새로운 도서를 등록하기 위한 form
+	 * @return
+	 */
 	@GetMapping(value = "/book/register")
 	public ModelAndView registerBookForm() {
 		List<Warehouse> warehouseList = warehouseRepository.findAll();
@@ -45,18 +51,21 @@ public class BookController {
 		return modelAndView;
 	}
 
+	/**
+	 * 2-f) 도서 등록을 위한 Service 메소드 호출
+	 * @param httpServletRequest
+	 * @return
+	 */
 	@PostMapping(value = "/book/register")
 	public ModelAndView registerBook(HttpServletRequest httpServletRequest) {
 		Book book = bookService.registerBook(httpServletRequest);
 		Author author = bookService.registerAuthor(httpServletRequest);
-		// Written_by written_by = bookService.registerWritten_by(author, book);
 		Publisher publisher = bookService.registerPublisher(httpServletRequest);
-		// Published_by published_by = bookService.registerPublished_by(publisher, book);
-		ModelAndView modelAndView = new ModelAndView("2dAfterRegister");
 		bookService.registerStocks(httpServletRequest, book);
-		modelAndView.addObject("book", book);
-		modelAndView.addObject("author", author);
-		modelAndView.addObject("publisher", publisher);
+		ModelAndView modelAndView = new ModelAndView("2dAfterRegister");
+		modelAndView.addObject("book", book.getTitle());
+		modelAndView.addObject("author", author.getAuthorId().getName());
+		modelAndView.addObject("publisher", publisher.getName());
 		return modelAndView;
 	}
 

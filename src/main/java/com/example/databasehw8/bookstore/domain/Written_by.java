@@ -12,20 +12,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@IdClass(Written_byId.class)
 public class Written_by implements Serializable {
 
-	@Id
-	@JoinColumns({
-			@JoinColumn(name = "name"),
-			@JoinColumn(name = "address")
-	})
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Author author;
-
-	@Id
-	@JoinColumn(name = "isbn")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Book book;
+	@EmbeddedId
+	private Written_byId written_byId;
 
 }

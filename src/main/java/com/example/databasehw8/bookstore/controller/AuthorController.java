@@ -1,7 +1,7 @@
 package com.example.databasehw8.bookstore.controller;
 
 import com.example.databasehw8.bookstore.domain.Author;
-import com.example.databasehw8.bookstore.domain.AuthorId;
+import com.example.databasehw8.bookstore.domain.id.AuthorId;
 import com.example.databasehw8.bookstore.domain.Stocks;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.service.AuthorService;
@@ -21,6 +21,10 @@ public class AuthorController {
     private AuthorRepository authorRepository;
     private StocksService stocksService;
 
+    /**
+     * 모든 작가들의 정보를 확인
+     * @return
+     */
     @GetMapping(value = "/author")
     public ModelAndView authors() {
         List<Author> authorList = authorService.findAll();
@@ -29,6 +33,12 @@ public class AuthorController {
         return modelAndView;
     }
 
+    /**
+     * 선택한 작가가 쓴 책의 제목, 재고를 확인
+     * @param name
+     * @param address
+     * @return
+     */
     @GetMapping(value = "/author/book")
     public ModelAndView authorBooks(@RequestParam String name, @RequestParam String address) {
         List<Stocks> stocksList = stocksService.findAllByAuthor(name, address);
@@ -36,7 +46,7 @@ public class AuthorController {
                 new AuthorId(name, address)
         );
         ModelAndView modelAndView = new ModelAndView("2aAuthorBooks");
-        modelAndView.addObject("authorName", author.getName());
+        modelAndView.addObject("authorName", author.getAuthorId().getName());
         modelAndView.addObject("stocksList", stocksList);
         return modelAndView;
     }

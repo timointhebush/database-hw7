@@ -16,6 +16,10 @@ import lombok.AllArgsConstructor;
 public class CourseController {
 	private CourseService courseService;
 
+	/**
+	 * 1-a) Course Table에 존재하는 Data, Tuple 총 갯수 확인.
+	 * @return
+	 */
 	@GetMapping(value = "/course")
 	public ModelAndView showDataAndCount() {
 		List<Course> courseList = courseService.findAll();

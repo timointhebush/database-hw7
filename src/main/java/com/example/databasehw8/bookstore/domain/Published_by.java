@@ -12,17 +12,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@IdClass(Published_byId.class)
 public class Published_by implements Serializable {
 
-	@Id
-	@JoinColumn(name = "name")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Publisher publisher;
-
-	@Id
-	@JoinColumn(name = "isbn")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Book book;
+	@EmbeddedId
+	private Published_byId published_byId;
 
 }

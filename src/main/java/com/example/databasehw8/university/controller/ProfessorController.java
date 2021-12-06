@@ -16,6 +16,10 @@ import lombok.AllArgsConstructor;
 public class ProfessorController {
 	private ProfessorService professorService;
 
+	/**
+	 * 1-a) Professor Table에 존재하는 Data, Tuple 총 갯수 확인.
+	 * @return
+	 */
 	@GetMapping(value = "/professor")
 	public ModelAndView showDataAndCount() {
 		List<Professor> professorList = professorService.findAll();

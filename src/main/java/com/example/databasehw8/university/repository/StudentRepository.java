@@ -17,7 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     nativeQuery = true)
     public List<CntSnoByYear> getCntSnoByYear();
 
-    @Query(value = "select s.dept year, count(s.sno) cntSno " +
+    @Query(value = "select s.dept dept, count(s.sno) cntSno " +
             "from Student s " +
             "group by s.dept ",
             nativeQuery = true)

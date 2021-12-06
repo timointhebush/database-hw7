@@ -12,18 +12,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@IdClass(StocksId.class)
 public class Stocks implements Serializable {
 
-	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "isbn")
-	private Book book;
-
-	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "code")
-	private Warehouse warehouse;
+	@EmbeddedId
+	private StocksId stocksId;
 
 	private Integer num;
 }

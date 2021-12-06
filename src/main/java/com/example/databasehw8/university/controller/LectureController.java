@@ -18,6 +18,10 @@ import lombok.AllArgsConstructor;
 public class LectureController {
 	private LectureService lectureService;
 
+	/**
+	 * 1-a) Lecture Table에 존재하는 Data, Tuple 총 갯수 확인.
+	 * @return
+	 */
 	@GetMapping(value = "/lecture")
 	public ModelAndView showDataAndCount() {
 		List<Lecture> lectureList = lectureService.findAll();
@@ -28,6 +32,10 @@ public class LectureController {
 		return modelAndView;
 	}
 
+	/**
+	 * 1-g) 학과 별로 개설된 강좌 수 확인
+	 * @return
+	 */
 	@GetMapping(value = "/lecture/cnt")
 	public ModelAndView showCntCnoByMajor() {
 		List<CntCnoByMajor> cntCnoByMajors = lectureService.findCntCnoByMajor();

@@ -9,11 +9,15 @@
 </header>
 <body>
 <p> Book,에 새로운 레코드를 삽입(추가) 했습니다.</p>
-${book.getTitle()}
-<p> Author, Written_by에 새로운 레코드를 삽입(추가) 했습니다.</p>
-${author.getName()}
-<p> Publisher, Published_by에 새로운 레코드를 삽입(추가) 했습니다.</p>
-${publisher.getName()}
+${book}
+<p> Author에 새로운 레코드를 삽입(추가) 했습니다.</p>
+${author}
+<p> Written_by에 새로운 레코드를 삽입(추가) 했습니다.</p>
+${written_by}
+<p> Publisher에 새로운 레코드를 삽입(추가) 했습니다.</p>
+${publisher}
+<p> Published_by에 새로운 레코드를 삽입(추가) 했습니다.</p>
+${published_by}
 </body>
 </html>
 
