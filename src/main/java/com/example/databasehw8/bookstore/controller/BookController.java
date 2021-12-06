@@ -12,14 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.databasehw8.bookstore.domain.Author;
 import com.example.databasehw8.bookstore.domain.Book;
-import com.example.databasehw8.bookstore.domain.Published_by;
 import com.example.databasehw8.bookstore.domain.Publisher;
 import com.example.databasehw8.bookstore.domain.Warehouse;
-import com.example.databasehw8.bookstore.domain.Written_by;
 import com.example.databasehw8.bookstore.projection.AvgBookPrice;
 import com.example.databasehw8.bookstore.projection.AvgBookPriceByYear;
 import com.example.databasehw8.bookstore.projection.CntMinMaxAvgByAuthor;
-import com.example.databasehw8.bookstore.projection.SumStocksBook;
+import com.example.databasehw8.bookstore.projection.SumNumByBook;
 import com.example.databasehw8.bookstore.repository.AuthorRepository;
 import com.example.databasehw8.bookstore.repository.BookRepository;
 import com.example.databasehw8.bookstore.repository.PublisherRepository;
@@ -69,6 +67,10 @@ public class BookController {
 		return modelAndView;
 	}
 
+	/**
+	 * 2-e) 전체 도서의 평균 가격, 년도 별 평균 가격
+	 * @return
+	 */
 	@GetMapping(value = "/book/price")
 	public ModelAndView avgPrice() {
 		List<AvgBookPrice> avgBookPrices = bookRepository.getAvgPrice();
@@ -79,6 +81,10 @@ public class BookController {
 		return modelAndView;
 	}
 
+	/**
+	 * 2-f) 작가 별 총 개수, 최고, 최저, 평균 가격
+	 * @return
+	 */
 	@GetMapping(value = "/book/author")
 	public ModelAndView cntMinMaxAvgByAuthor() {
 		List<CntMinMaxAvgByAuthor> cntMinMaxAvgByAuthors = bookRepository.getCntMinMaxAvgByAuthor();
@@ -87,26 +93,41 @@ public class BookController {
 		return modelAndView;
 	}
 
+	/**
+	 * 2-g) 특정 재고 이상의 책들을 확인
+	 * @param pivotNum
+	 * @return
+	 */
 	@GetMapping(value = "/book/stocks")
-	public ModelAndView bookStocks(@RequestParam Integer stockNum) {
-		List<SumStocksBook> sumStocksBooks = stocksRepository.findBySumStocks(stockNum);
-		List<Book> bookList = bookRepository.findBySumStocks(stockNum);
-		ModelAndView modelAndView = new ModelAndView("2gBooksOverStock");
-		modelAndView.addObject("stockNum", stockNum);
-		modelAndView.addObject("sumStocksBooks", sumStocksBooks);
-		modelAndView.addObject("bookList", bookList);
-		return modelAndView;
+	public ModelAndView bookStocks(@RequestParam Integer pivotNum) {
+		return showStocksBook(pivotNum);
 	}
 
+	/**
+	 * 2-g) 특정 재고 이상의 책들을 원하는 정도 할인
+	 * @param discountPercent
+	 * @param pivotNum
+	 * @return
+	 */
 	@GetMapping(value = "/book/discount")
-	public ModelAndView discountPrice(@RequestParam Integer discountPercent, @RequestParam Integer stockNum) {
+	public ModelAndView discountPrice(@RequestParam Integer discountPercent, @RequestParam Integer pivotNum) {
 		double discountRate = (100 - discountPercent)*0.01;
-		stocksRepository.updatePrice(stockNum, discountRate);
-		List<SumStocksBook> sumStocksBooks = stocksRepository.findBySumStocks(stockNum);
-		List<Book> bookList = bookRepository.findBySumStocks(stockNum);
+		List<Book> bookList = bookRepository.findBookOverStock(pivotNum);
+		bookService.updatePrice(bookList, discountRate);
+		return showStocksBook(pivotNum);
+	}
+
+	/**
+	 * 2-g) 특정 재고 이상의 책들을 확인, 공통 메소드
+	 * @param pivotNum
+	 * @return
+	 */
+	public ModelAndView showStocksBook(Integer pivotNum) {
+		List<SumNumByBook> sumNumByBooks = stocksRepository.findBookNumOverStock(pivotNum);
+		List<Book> bookList = bookRepository.findBookOverStock(pivotNum);
 		ModelAndView modelAndView = new ModelAndView("2gBooksOverStock");
-		modelAndView.addObject("stockNum", stockNum);
-		modelAndView.addObject("sumStocksBooks", sumStocksBooks);
+		modelAndView.addObject("pivotNum", pivotNum);
+		modelAndView.addObject("sumNumByBooks", sumNumByBooks);
 		modelAndView.addObject("bookList", bookList);
 		return modelAndView;
 	}

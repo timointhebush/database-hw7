@@ -95,4 +95,11 @@ public class BookService {
 		);
 		return bookRepository.saveAndFlush(book);
 	}
+
+	@Transactional
+	public void updatePrice(List<Book> bookList, double discountRate) {
+		for (Book book : bookList) {
+			book.updatePrice(discountRate);
+		}
+	}
 }

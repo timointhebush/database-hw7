@@ -20,6 +20,10 @@ public class Book {
 
 	private Integer year;
 
-	private Integer price;
+	private double price;
+
+	public void updatePrice(double discountRate) {
+		this.price = this.price * discountRate;
+	}
 
 }

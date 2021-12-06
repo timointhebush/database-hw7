@@ -9,7 +9,6 @@ import com.example.databasehw8.bookstore.domain.Book;
 import com.example.databasehw8.bookstore.projection.AvgBookPrice;
 import com.example.databasehw8.bookstore.projection.AvgBookPriceByYear;
 import com.example.databasehw8.bookstore.projection.CntMinMaxAvgByAuthor;
-import com.example.databasehw8.bookstore.projection.SumStocksBook;
 
 public interface BookRepository extends JpaRepository<Book, String> {
 
@@ -30,6 +29,6 @@ public interface BookRepository extends JpaRepository<Book, String> {
 		+ "     select b.isbn "
 		+ "     from Book b join Stocks s on s.isbn = b.isbn "
 		+ "     group by b.isbn "
-		+ "     having sumStocks >= ?1 )", nativeQuery = true)
-	public List<Book> findBySumStocks(Integer stockNum);
+		+ "     having sum(s.num) >= ?1 )", nativeQuery = true)
+	public List<Book> findBookOverStock(Integer pivotNum);
 }
